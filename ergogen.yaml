@@ -140,7 +140,7 @@ outlines:
           ref:
             - main_inner_top
           shift: [0.5kx - 1.5px, -3.5ky + ky - py]
-        size: [2px + pmx + 1.5px, 3ky + py]
+        size: [2px + pmx + 1.5px, 46]
         corner: px
     pcb:
       - type: outline
@@ -160,7 +160,7 @@ outlines:
         anchor:
           ref:
             - main_inner_top
-          shift: [0.5kx + px, 0.5kx - (pmy + py)]
+          shift: [0.5kx + px, 0 - (pmy + 0)]
     keycap_outlines:
       - type: keys
         side: left
@@ -191,14 +191,14 @@ pcbs:
         anchor:
           ref:
             - main_inner_top
-          shift: [20, -11]
+          shift: [20, -18]
           rotate: 270
       pad_plus:
         type: pad
         anchor:
           ref:
             - main_inner_top
-          shift: [22, -17]
+          shift: [22, -24]
         params:
           front: true
           back: true
@@ -212,7 +212,7 @@ pcbs:
         anchor:
           ref:
             - main_inner_top
-          shift: [22, -14]
+          shift: [22, -21]
         params:
           front: true
           back: true
@@ -226,7 +226,7 @@ pcbs:
         anchor:
           ref:
             - main_inner_bottom
-          shift: [28.75, 2]
+          shift: [28.75, -5]
           rotate: 270
         params:
           side: F
@@ -238,7 +238,7 @@ pcbs:
         anchor:
           ref:
             - main_inner_bottom
-          shift: [28.75, 2]
+          shift: [28.75, -5]
           rotate: 270
         params:
           side: B
@@ -250,7 +250,7 @@ pcbs:
         anchor:
           ref:
             - main_inner_bottom
-          shift: [21, 2]
+          shift: [21, -5]
           rotate: 270
         params:
           variant: 2_pin_th
