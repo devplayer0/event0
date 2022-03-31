@@ -1,0 +1,283 @@
+units:
+  kx: cx
+  ky: cy
+  px: 2
+  py: 2
+  pmx: 17.78
+  pmy: 33.02
+points:
+  key:
+    padding: ky
+    footprints:
+      choc_hotswap:
+        type: choc
+        params:
+          hotswap: true
+          reverse: true
+          keycaps: true
+        nets:
+          from: =mcu_net
+          to: GND
+      choc:
+        type: choc
+        anchor:
+          rotate: 180
+        nets:
+          from: =mcu_net
+          to: GND
+        params:
+          keycaps: true
+          reverse: true
+  zones:
+    main:
+      key.padding: ky
+      columns:
+        pinky:
+          spread: kx
+          rows.top.mcu_net: P1
+          rows.home.mcu_net: P20
+          rows.bottom.mcu_net: P6
+        ring:
+          stagger: 0.7ky
+          spread: kx
+          rows.top.mcu_net: P0
+          rows.home.mcu_net: P4
+          rows.bottom.mcu_net: P15
+        middle:
+          stagger: 0.1ky
+          spread: kx
+          rows.top.mcu_net: P2
+          rows.home.mcu_net: P19
+          rows.bottom.mcu_net: P7
+        index:
+          stagger: -0.3ky
+          spread: kx
+          rows.top.mcu_net: P21
+          rows.home.mcu_net: P5
+          rows.bottom.mcu_net: P14
+        inner:
+          stagger: -0.1ky
+          spread: kx
+          rows.top.mcu_net: P3
+          rows.home.mcu_net: P18
+          rows.bottom.mcu_net: P8
+      rows:
+        bottom:
+        home:
+        top:
+    thumb:
+      anchor:
+        ref: main_inner_bottom
+        shift: [-1.2kx, -1.2ky]
+      columns:
+        aux:
+          spread: kx
+          origin: [-0.5kx, -0.5ky]
+          rotate: 0
+          rows.thumb.mcu_net: P9
+        home:
+          spread: kx
+          origin: [-0.5kx, -0.5ky]
+          rotate: -10
+          rows.thumb.mcu_net: P10
+      rows:
+        thumb:
+outlines:
+  exports:
+    raw:
+      - type: keys
+        side: left
+        size: [kx + px, ky + py]
+        corner: px
+    thumb_glue:
+      - type: polygon
+        points:
+          - ref: main_pinky_bottom
+            shift: [0.5kx, 0.5ky]
+          - ref: main_inner_bottom
+            shift: [1.5kx + 3.5, -0.5ky]
+          - ref: thumb_home_thumb
+            shift: [0.5kx, 0.5ky]
+          - ref: thumb_home_thumb
+            shift: [0.5kx, -0.5ky]
+          - ref: thumb_aux_thumb
+            shift: [-0.5kx, -0.5ky]
+          - ref: thumb_aux_thumb
+            shift: [-0.5kx, -0.5ky]
+          - ref: main_middle_bottom
+            shift: [0, -1.5ky]
+          - ref: main_pinky_bottom
+            shift: [0.5kx, -0.5ky]
+    fill:
+      pinky:
+        type: polygon
+        points:
+          - ref: main_pinky_top
+            shift: [-0.5(kx+px), 0]
+          - ref: main_pinky_home
+          - ref: main_pinky_bottom
+            shift: [-0.5(kx+px), 0]
+      inner:
+        type: polygon
+        points:
+          - ref: main_inner_top
+            shift: [0.5(kx+px), 0]
+          - ref: main_inner_home
+          - ref: main_inner_bottom
+            shift: [0.5(kx+px), 0]
+
+    keywell:
+      - type: outline
+        name: raw
+      - type: outline
+        name: thumb_glue
+      - type: outline
+        name: fill
+    controller_area:
+      main:
+        type: rectangle
+        anchor:
+          ref:
+            - main_inner_top
+          shift: [0.5kx - 1.5px, -3.5ky + ky - py]
+        size: [2px + pmx + 1.5px, 3ky + py]
+        corner: px
+    pcb:
+      - type: outline
+        name: keywell
+      - type: outline
+        name: controller_area
+
+    switches:
+      main:
+        type: keys
+        side: left
+        size: 14
+        bound: false
+    controller:
+      - type: rectangle
+        size: [pmx, pmy]
+        anchor:
+          ref:
+            - main_inner_top
+          shift: [0.5kx + px, 0.5kx - (pmy + py)]
+    keycap_outlines:
+      - type: keys
+        side: left
+        size: [1kx - 0.5, 1ky - 0.5] # Choc keycaps are 17.5 x 16.5
+        bound: false
+    overall:
+      - type: outline
+        name: keywell
+      - type: outline
+        name: controller_area
+      - type: outline
+        name: keycap_outlines
+        operation: subtract
+      - type: outline
+        name: controller
+        operation: subtract
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: pcb
+    footprints:
+      mcu:
+        type: promicro
+        params:
+          orientation: up
+          batteryPins: true
+        anchor:
+          ref:
+            - main_inner_top
+          shift: [20, -11]
+          rotate: 270
+      pad_plus:
+        type: pad
+        anchor:
+          ref:
+            - main_inner_top
+          shift: [22, -17]
+        params:
+          front: true
+          back: true
+          width: 1.5
+          height: 1.5
+          text: 'B+'
+        nets:
+          net: Bplus
+      pad_minus:
+        type: pad
+        anchor:
+          ref:
+            - main_inner_top
+          shift: [22, -14]
+        params:
+          front: true
+          back: true
+          width: 1.5
+          height: 1.5
+          text: 'B-'
+        nets:
+          net: GND
+      power_l:
+        type: slider
+        anchor:
+          ref:
+            - main_inner_bottom
+          shift: [28.75, 2]
+          rotate: 270
+        params:
+          side: F
+        nets:
+          from: Bplus
+          to: RAW
+      power_r:
+        type: slider
+        anchor:
+          ref:
+            - main_inner_bottom
+          shift: [28.75, 2]
+          rotate: 270
+        params:
+          side: B
+        nets:
+          from: Bplus
+          to: RAW
+      reset:
+        type: button
+        anchor:
+          ref:
+            - main_inner_bottom
+          shift: [21, 2]
+          rotate: 270
+        params:
+          variant: 2_pin_th
+        nets:
+          from: GND
+          to: RST
+      #batt_connector_l:
+      #  type: jstph
+      #  params:
+      #    side: F
+      #  anchor:
+      #    ref:
+      #      - main_inner_bottom
+      #    shift: [19, -2]
+      #    rotate: 180
+      #  nets:
+      #    pos: RAW
+      #    neg: GND
+      #batt_connector_r:
+      #  type: jstph
+      #  params:
+      #    side: B
+      #  anchor:
+      #    ref:
+      #      - main_inner_bottom
+      #    shift: [21, -2]
+      #    rotate: 180
+      #  nets:
+      #    pos: RAW
+      #    neg: GND
