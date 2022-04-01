@@ -34,15 +34,15 @@ points:
       columns:
         pinky:
           spread: kx
-          rows.top.mcu_net: P1
-          rows.home.mcu_net: P20
-          rows.bottom.mcu_net: P6
+          rows.top.mcu_net: P3
+          rows.home.mcu_net: P18
+          rows.bottom.mcu_net: P8
         ring:
           stagger: 0.7ky
           spread: kx
-          rows.top.mcu_net: P0
-          rows.home.mcu_net: P4
-          rows.bottom.mcu_net: P15
+          rows.top.mcu_net: P21
+          rows.home.mcu_net: P5
+          rows.bottom.mcu_net: P14
         middle:
           stagger: 0.1ky
           spread: kx
@@ -52,15 +52,15 @@ points:
         index:
           stagger: -0.3ky
           spread: kx
-          rows.top.mcu_net: P21
-          rows.home.mcu_net: P5
-          rows.bottom.mcu_net: P14
+          rows.top.mcu_net: P0
+          rows.home.mcu_net: P4
+          rows.bottom.mcu_net: P15
         inner:
           stagger: -0.1ky
           spread: kx
-          rows.top.mcu_net: P3
-          rows.home.mcu_net: P18
-          rows.bottom.mcu_net: P8
+          rows.top.mcu_net: P1
+          rows.home.mcu_net: P20
+          rows.bottom.mcu_net: P6
       rows:
         bottom:
         home:
