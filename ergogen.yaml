@@ -210,19 +210,10 @@ pcbs:
         nets:
           net: Bplus
       pad_minus:
-        type: pad
-        anchor:
-          ref:
-            - main_inner_top
-          shift: [22, -21]
-        params:
-          front: true
-          back: true
-          width: 1.5
-          height: 1.5
-          text: 'B-'
-        nets:
-          net: GND
+        $extends: pcbs.main.footprints.pad_plus
+        anchor.shift: [22, -21]
+        params.text: 'B-'
+        nets.net: GND
       power_l:
         type: slider
         anchor:
@@ -236,17 +227,9 @@ pcbs:
           from: Bplus
           to: RAW
       power_r:
-        type: slider
-        anchor:
-          ref:
-            - main_inner_bottom
-          shift: [28.75, -5]
-          rotate: 270
-        params:
-          side: B
-        nets:
-          from: Bplus
-          to: RAW
+        $extends: pcbs.main.footprints.power_l
+        anchor.shift: [28.75, -5]
+        params.side: B
 
       reset:
         type: button
