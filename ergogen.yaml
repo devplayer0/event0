@@ -187,12 +187,14 @@ pcbs:
         type: promicro
         params:
           orientation: up
-          batteryPins: true
+          batteryPins: false
+          silk: false
         anchor:
           ref:
             - main_inner_top
           shift: [20, -18]
           rotate: 270
+
       pad_plus:
         type: pad
         anchor:
@@ -245,6 +247,7 @@ pcbs:
         nets:
           from: Bplus
           to: RAW
+
       reset:
         type: button
         anchor:
@@ -257,30 +260,6 @@ pcbs:
         nets:
           from: GND
           to: RST
-      #batt_connector_l:
-      #  type: jstph
-      #  params:
-      #    side: F
-      #  anchor:
-      #    ref:
-      #      - main_inner_bottom
-      #    shift: [19, -2]
-      #    rotate: 180
-      #  nets:
-      #    pos: RAW
-      #    neg: GND
-      #batt_connector_r:
-      #  type: jstph
-      #  params:
-      #    side: B
-      #  anchor:
-      #    ref:
-      #      - main_inner_bottom
-      #    shift: [21, -2]
-      #    rotate: 180
-      #  nets:
-      #    pos: RAW
-      #    neg: GND
 
       info_l:
         type: text
