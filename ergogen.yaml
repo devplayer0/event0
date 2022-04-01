@@ -266,7 +266,7 @@ pcbs:
         anchor:
           ref:
             - thumb_aux_thumb
-          shift: [-1.5kx, 2]
+          shift: [-1.5kx, 1.75]
           rotate: -23.5
         params:
           text: JLCJLCJLCJLC
