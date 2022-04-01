@@ -18,16 +18,16 @@ points:
         nets:
           from: =mcu_net
           to: GND
-      choc:
-        type: choc
-        anchor:
-          rotate: 180
-        nets:
-          from: =mcu_net
-          to: GND
-        params:
-          keycaps: true
-          reverse: true
+      #choc:
+      #  type: choc
+      #  anchor:
+      #    rotate: 180
+      #  nets:
+      #    from: =mcu_net
+      #    to: GND
+      #  params:
+      #    keycaps: true
+      #    reverse: true
   zones:
     main:
       key.padding: ky
