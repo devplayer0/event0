@@ -1,0 +1,11 @@
+file_format: "1"
+id: event0
+name: event0
+type: shield
+url: https://github.com/devplayer0/event0
+requires: [pro_micro]
+features:
+  - keys
+siblings:
+  - event0_left
+  - event0_right

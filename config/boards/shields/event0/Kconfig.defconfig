@@ -1,0 +1,16 @@
+if SHIELD_EVENT0_LEFT
+
+config ZMK_SPLIT_BLE_ROLE_CENTRAL
+	default y
+
+endif
+
+if SHIELD_EVENT0_LEFT || SHIELD_EVENT0_RIGHT
+
+config ZMK_KEYBOARD_NAME
+	default "event0 keyboard"
+
+config ZMK_SPLIT
+	default y
+
+endif

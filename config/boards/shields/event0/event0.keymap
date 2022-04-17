@@ -1,0 +1,139 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define L_DFL 0
+#define L_LWR 1
+#define L_RSE 2
+#define L_SKY 3
+#define L_BSM 4
+
+&mt {
+	// Only trigger the mod behaviour when the time has expired
+	flavor = "tap-preferred";
+	tapping-term-ms = <180>;
+	quick-tap-ms = <180>;
+};
+&lt {
+	// Only trigger the layer behaviour when the time has expired
+	flavor = "tap-preferred";
+	tapping-term-ms = <180>;
+	quick-tap-ms = <180>;
+};
+
+/ {
+	behaviors {
+		sm: shift_mod {
+			compatible = "zmk,behavior-hold-tap";
+			label = "SHIFT_MOD";
+			#binding-cells = <2>;
+			bindings = <&kp>, <&kp>;
+
+			// Trigger the mod behaviour when the time has expired or the other
+			// key is released while the mod is still down
+			flavor = "balanced";
+			tapping-term-ms = <150>;
+			quick-tap-ms = <180>;
+		};
+
+		// IBus unicode (Linux only)
+		euro: euro {
+			compatible = "zmk,behavior-macro";
+			label = "IBUS_EURO";
+			#binding-cells = <0>;
+
+			wait-ms = <5>;
+			tap-ms = <5>;
+			bindings = <&kp LC(LS(U))>, <&kp N2>, <&kp N0>, <&kp A>, <&kp C>, <&kp SPACE>;
+		};
+		pound: pound {
+			compatible = "zmk,behavior-macro";
+			label = "IBUS_POUND";
+			#binding-cells = <0>;
+
+			wait-ms = <5>;
+			tap-ms = <5>;
+			bindings = <&kp LC(LS(U))>, <&kp A>, <&kp N3>, <&kp SPACE>;
+		};
+	};
+
+	conditional_layers {
+		compatible = "zmk,conditional-layers";
+
+		basement {
+			if-layers = <L_LWR L_RSE>;
+			then-layer = <L_BSM>;
+		};
+	};
+
+	keymap {
+		compatible = "zmk,keymap";
+
+		/* Layer template
+		my_layer {
+			bindings = <
+				&trans &trans &trans &trans &trans                 &trans &trans &trans &trans &trans
+				&trans &trans &trans &trans &trans                 &trans &trans &trans &trans &trans
+				&trans &trans &trans &trans &trans                 &trans &trans &trans &trans &trans
+				                            &trans &trans   &trans &trans
+			>;
+		};
+		*/
+		/* Layer template (none instead of transparency)
+		my_layer {
+			bindings = <
+				&none &none &none &none &none               &none &none &none &none &none
+				&none &none &none &none &none               &none &none &none &none &none
+				&none &none &none &none &none               &none &none &none &none &none
+				                        &none &none   &none &none
+			>;
+		};
+		*/
+
+		default {
+			// Colemak Mod-DH(m)
+			bindings = <
+				&kp Q      &kp W       &kp F      &kp P       &kp B                                          &kp J           &kp L       &kp U      &kp Y         &kp SQT
+				&mt LALT A &mt LCTRL R &mt LGUI S &sm LSHFT T &kp G                                          &kp M           &sm RSHFT N &mt LGUI E &mt LCTRL I   &mt RALT O
+				&kp Z      &kp X       &kp C      &kp D       &kp V                                          &kp K           &kp H       &kp COMMA  &kp DOT       &kp FSLH
+				                                              &lt L_SKY TAB &lt L_RSE SPACE   &lt L_LWR BSPC &kp ENTER
+			>;
+		};
+
+		lower {
+			bindings = <
+				&trans  &trans       &trans   &trans       &kp SLCK                 &kp PG_UP &trans     &kp UP   &trans     &trans
+				&kp ESC &trans       &trans   &trans       &kp CAPS                 &kp PG_DN &kp LEFT   &kp DOWN &kp RIGHT  &trans
+				&trans  &kp C_VOL_DN &kp C_PP &kp C_VOL_UP &trans                   &trans    &kp C_PREV &kp C_PP &kp C_NEXT &trans
+				                                             &trans   &trans   &trans &trans
+			>;
+		};
+		raise {
+			bindings = <
+				&kp DLLR &kp COLON &kp LBRC &kp RBRC &kp TILDE                        &kp PLUS  &kp N7 &kp N8 &kp N9 &kp STAR
+				&kp EXCL &kp SEMI  &kp LPAR &kp RPAR &kp UNDER                        &kp MINUS &kp N4 &kp N5 &kp N6 &kp EQUAL
+				&kp HASH &kp BSLH  &kp LBKT &kp RBKT &kp AMPS                         &kp PIPE  &kp N1 &kp N2 &kp N3 &kp PRCNT
+				                                     &trans    &trans   &lt L_LWR DEL &kp N0
+			>;
+		};
+
+		sky {
+			bindings = <
+				&trans &pound &trans    &trans &trans             &trans &kp F7 &kp F8 &kp F9 &kp F12
+				&trans &euro  &kp GRAVE &kp AT &kp CARET          &trans &kp F4 &kp F5 &kp F6 &kp F11
+				&trans &trans &trans    &trans &trans             &trans &kp F1 &kp F2 &kp F3 &kp F10
+				                               &trans    &trans   &trans &trans
+			>;
+		};
+
+		basement {
+			bindings = <
+				&none &none &none        &none        &none                    &none &none        &none        &none        &none
+				&none &none &out OUT_BLE &out OUT_USB &none                    &none &bt BT_SEL 3 &bt BT_SEL 4 &none        &none
+				&none &none &none        &none        &none                    &none &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &none
+				                                      &bt BT_CLR &none   &none &none
+			>;
+		};
+	};
+};

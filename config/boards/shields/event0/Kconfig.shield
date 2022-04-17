@@ -1,0 +1,5 @@
+config SHIELD_EVENT0_LEFT
+    def_bool $(shields_list_contains,event0_left)
+
+config SHIELD_EVENT0_RIGHT
+    def_bool $(shields_list_contains,event0_right)
